@@ -1927,8 +1927,9 @@ void callAppropriateFunction(){
 	else if (instructionOperation==142)
 		dmp();
 	 */
-	else if(instructionOperation==143)
-		RET();
+	else if(instructionOperation==143){
+		cout<<"\nGoing to call RET in callAppropriateFunction function !!\n";
+		RET(); }
 	else if (instructionOperation==144)
 		JAL(instructionOperand1);
 	return;
