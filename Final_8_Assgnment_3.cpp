@@ -229,7 +229,7 @@ int main(){
 	memoryDump();
 	cout<< endl << "L1:: "<<L1<<", L2:: "<<L2<<", L3:: "<<L3 <<", JAL:: "<<jalReturnAddress << endl;
 	//Start Program
-	cout << "Starting Program" << endl;
+	cout << "-----------------------------Starting Program-----------------------------" << endl;
 	startMemLocation=1024;
 	while (exitCodeCount != 8){
 		operationType = 0;
@@ -241,7 +241,7 @@ int main(){
 			cout << operation[i];
 		}
 
-		cout << "Hello" << endl;
+		//cout << "Hello" << endl;
 
 		if (exitCodeCount != 8){
 			if (operationType == 1) { //ALU Type Instruction: Operation, Operand1, Operand2, Operand3
@@ -270,16 +270,16 @@ int main(){
 		}
 	}
 
-	for (int i = 0; i < 32; i++){
-		printf("%c", currentInstruction[i]);
-	}
-	cout<<"Program Finished"<<endl;
+//	for (int i = 0; i < 32; i++){
+//		printf("%c", currentInstruction[i]);
+//	}
+	cout<<"-----------------------------Program Finished-----------------------------"<<endl;
 
-	memoryDump();
+	//memoryDump();
 
-	cout<<"L1:: "<<L1<<", L2:: "<<L2<<", L3:: "<<L3 << endl;
+	//cout<<"L1:: "<<L1<<", L2:: "<<L2<<", L3:: "<<L3 << endl;
 
-	cout << "FINISHED" << endl;
+	//cout << "FINISHED" << endl;
 }
 
 
