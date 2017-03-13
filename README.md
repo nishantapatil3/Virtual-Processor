@@ -130,17 +130,19 @@ CPU Overview:
     7) Memory Data Register
       Register containing data.
 
+LDA and STA: 
     The two opcodes that we implemented are LDA and STA. LDA will accept a 32-bit hexadecimal
     value (memory address) and copy the values in that memory location to the accumulator
     register. STA (store) will accept a 32-bit address and copy the values in the accumulator into the
     memory location.
-    Various other functions were created to print out the register and memory contents, converting
-    binary to decimal, and hex to decimal.
-    First, we use the store command STA 00000800 to store the value within accumulator,
-    FF01FF01, to address location 800. Next, we send the STA 07FA to store FF01FF01 to address
-    07FA. Last, we send the LDA 07FE to store the values in memory location 07FE, 07FF, 800,
-    and 801 and store them into accumulator. Final value in accumulator is 0000FF01. There is also
-    complex error checking within our code to verify valid commands/addresses.
+
+Various other functions were created to print out the register and memory contents, converting
+binary to decimal, and hex to decimal.
+First, we use the store command STA 00000800 to store the value within accumulator,
+FF01FF01, to address location 800. Next, we send the STA 07FA to store FF01FF01 to address
+07FA. Last, we send the LDA 07FE to store the values in memory location 07FE, 07FF, 800,
+and 801 and store them into accumulator. Final value in accumulator is 0000FF01. There is also
+complex error checking within our code to verify valid commands/addresses.
 
 Sample Code in the assembly level language:
   1.
