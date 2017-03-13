@@ -91,30 +91,22 @@ Reading In Assembly Code:
     decoded, an exit flag will be set and the program will no longer fetch additional instructions.
 
 ALU Functions:
-    Flag Bits: We have included the following flags in our CPU architecture - Sign Flag, Overflow
-    Flag, Zero Flag, Carry Flag.
-    SUB Function: Subtract function - Takes three register numbers as input (z,x,y) and subtract 'x'
-    register and 'y' register and stores the result in 'z' register. It just takes 2’s complement of the the
-    content of ‘y’ register and adds it to the content of ‘x’ register
-    ADD Function: Addition function - Takes three register numbers as input (z,x,y) and addition 'x'
-    register and 'y' register and stores the result in 'z' register. It does the normal addition of two
-    binary bit stream bit by bit using bitwise operations
-    MUL Function: Multiply function - Takes three register numbers as input (z,x,y) and multiply 'x'
-    register and 'y' register and stores the result in 'z' register. To multiply ‘x’ and ‘y’, It adds ‘x’, ‘y’
-    times and stores it to ‘z’ register.
-    DIV Function: Divition function - Takes three register numbers as input (z,x,y) and divides 'x'
-    register and 'y' register and stores the result in 'z' register. To divide ‘x’ by ‘y’, It counts how
-    many times we can subtract ‘x’ from ‘y’ and stores it to ‘z’ register.
-    MOD Function: Modular function - Takes three register numbers as input (z,x,y) and take
-    Modulos between 'x' register and 'y' register and stores the result in 'z' register. To divide ‘x’ by
-    ‘y’, It counts how many times we can subtract ‘x’ from ‘y’ and at the end whatever is the content
-    of ‘x’ register is stores it to ‘z’ register.
+    
+    Flag Bits: We have included the following flags in our CPU architecture - Sign Flag, Overflow Flag, Zero Flag, Carry Flag.
+    
+    SUB Function: Subtract function - Takes three register numbers as input (z,x,y) and subtract 'x' register and 'y' register and stores the result in 'z' register. It just takes 2’s complement of the the content of ‘y’ register and adds it to the content of ‘x’ register
+    
+    ADD Function: Addition function - Takes three register numbers as input (z,x,y) and addition 'x' register and 'y' register and stores the result in 'z' register. It does the normal addition of two binary bit stream bit by bit using bitwise operations
+    
+    MUL Function: Multiply function - Takes three register numbers as input (z,x,y) and multiply 'x' register and 'y' register and stores the result in 'z' register. To multiply ‘x’ and ‘y’, It adds ‘x’, ‘y’ times and stores it to ‘z’ register.
+    
+    DIV Function: Divition function - Takes three register numbers as input (z,x,y) and divides 'x' register and 'y' register and stores the result in 'z' register. To divide ‘x’ by ‘y’, It counts how many times we can subtract ‘x’ from ‘y’ and stores it to ‘z’ register.
+    
+    MOD Function: Modular function - Takes three register numbers as input (z,x,y) and take Modulos between 'x' register and 'y' register and stores the result in 'z' register. To divide ‘x’ by ‘y’, It counts how many times we can subtract ‘x’ from ‘y’ and at the end whatever is the content of ‘x’ register is stores it to ‘z’ register.
 
 CPU Overview:
-    1) Number of 32 bit registers – 16 (R0 – R15) General Purpose
-    16 32-bit general purpose registers.
-    2) Accumulator 32 bit – 1
-    Accumulator is a 32-bit register. It will store the output of the ALU.
+    1) Number of 32 bit registers – 16 (R0 – R15) General Purpose 16 32-bit general purpose registers.
+    2) Accumulator 32 bit – 1 Accumulator is a 32-bit register. It will store the output of the ALU.
     3) Memory 4096 locations (rows) each with 8 bit
       1. 0-2047 (reserved for Instruction set, Stack, Heap)
         a. 0 - 1023 (Bootstrap)
