@@ -145,22 +145,15 @@ and 801 and store them into accumulator. Final value in accumulator is 0000FF01.
 complex error checking within our code to verify valid commands/addresses.
 
 Sample Code in the assembly level language:
+  
   1.
     MFA 0x429(R14,R15,2)
-    
     MTA 0x429(R14,R15,2)
-    
     ADD R5,R1,R2
-    
     SUB R6,R4,R3
-    
     MUL R7,R3,R2
-    
     DIV R8,R4,R2
-    
     MOD R4,R5,R6
-    
     MOV R10,R7,R2
-    
     EXIT
  
