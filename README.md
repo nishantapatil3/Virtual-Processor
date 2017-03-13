@@ -72,22 +72,38 @@ ALU Functions:
     MOD Function: Modular function - Takes three register numbers as input (z,x,y) and take Modulos between 'x' register and 'y' register and stores the result in 'z' register. To divide ‘x’ by ‘y’, It counts how many times we can subtract ‘x’ from ‘y’ and at the end whatever is the content of ‘x’ register is stores it to ‘z’ register.
 
 CPU Overview:
-    1) Number of 32 bit registers – 16 (R0 – R15) General Purpose 16 32-bit general purpose registers.
-    2) Accumulator 32 bit – 1 Accumulator is a 32-bit register. It will store the output of the ALU.
-    3) Memory 4096 locations (rows) each with 8 bit
+
+1) Number of 32 bit registers – 16 (R0 – R15) General Purpose 16 32-bit general purpose registers.
+
+2) Accumulator 32 bit – 1 Accumulator is a 32-bit register. It will store the output of the ALU.
+
+3) Memory 4096 locations (rows) each with 8 bit
       1. 0-2047 (reserved for Instruction set, Stack, Heap)
+      
         a. 0 - 1023 (Bootstrap)
+        
         b. 1024 - 2047 (Instruction Memory)
+        
       2. 2048-4096 (Data Memory)
+      
       3. Memory total 4KB
+      
     4) Flag – 4 bits
+    
       Carry, Overflow, Zero, and Sign.
+      
     5) Program Counter
+    
       Register that contains the address of the instruction to be executed next.
+      
     6) Memory Address Register
+    
       This register will contain the address of an instruction or it will store the address of data.
+      
     7) Memory Data Register
+    
       Register containing data.
+      
 
 LDA and STA: 
     The two opcodes that we implemented are LDA and STA. LDA will accept a 32-bit hexadecimal
