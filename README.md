@@ -1,32 +1,21 @@
 Overview:
-    Our program reads in assembly code from a text file, decodes the assembly instruction into
-    machine code and stores it into the Instruction Memory portion of Memory. Once we are finished
-    reading in the assembly code, our program begins execution. It pulls the first instruction from
-    memory location 1024, executes it, and will read each instruction until the “EXIT” opcode is
-    reached. If the “EXIT” code is read from Instruction Memory, the program will not fetch the next
-    instruction and exit the program.
+    Our program reads in assembly code from a text file, decodes the assembly instruction into machine code and stores it into the Instruction Memory portion of Memory. Once we are finished reading in the assembly code, our program begins execution. It pulls the first instruction from memory location 1024, executes it, and will read each instruction until the “EXIT” opcode is reached. If the “EXIT” code is read from Instruction Memory, the program will not fetch the next instruction and exit the program.
 
 Reading In Assembly Code:
-    We have implemented a functionality which reads instructions from a file named “inputFile.txt”
-    and decodes these instructions and stores the opcodes into the instruction memory starting
-    from 1024.
-    The file “inputFile.txt” contains a series of instructions, each on a new line. The program then
-    reads this file and inserts the respective opcodes into the instruction memory.
-    When MFA/MTA instructions are read from the file, we perform memory addressing to fetch the
-    memory location as below-
-    D(Rb,Ri,S) → Mem[Reg[Rb]+S*Reg[Ri]+D]
-    D - Constant displacement (1, 2, 4 bytes)
-    Rb - Base register (any of 16 integer registers)
+    We have implemented a functionality which reads instructions from a file named “inputFile.txt” and decodes these instructions and stores the opcodes into the instruction memory starting from 1024. 
+    The file “inputFile.txt” contains a series of instructions, each on a new line. The program then reads this file and inserts the respective opcodes into the instruction memory. 
+    When MFA/MTA instructions are read from the file, we perform memory addressing to fetch the memory location as below-
+    D(Rb,Ri,S) → Mem[Reg[Rb]+S*Reg[Ri]+D] 
+    D - Constant displacement (1, 2, 4 bytes) 
+    Rb - Base register (any of 16 integer registers) 
     Ri - Index register (any of 16 integer registers, except %rsp)
     S - Scale (1, 2, 4, or 8)
     We define,
     MFA <complete memory address>
     MTA <complete memory address>
-    The above 2 instructions considers the memory location as the 1st operand and the
-    accumulator as the 2nd operand. Hence, moving the contents from the memory location to the
-    Accumulator in case of MTA or moving the contents from the Accumulator to memory location in
-    case of MFA.
-    Ex: MTA 0xff(R1,R3,2)
+    The above 2 instructions considers the memory location as the 1st operand and the accumulator as the 2nd operand. Hence, moving the contents from the memory location to the Accumulator in case of MTA or moving the contents from the Accumulator to memory location in case of MFA.
+    Ex: 
+    MTA 0xff(R1,R3,2)
     MFA 0xfe(R3,R2,4)
     MTA 0xff(R1,R3,2)
     Consider, R1=0x3, R2=0x5
@@ -36,59 +25,37 @@ Reading In Assembly Code:
     Consider, R2=0xA, R3=0x1
     0xfe + R1 + R3 + 0x2 = 127
     → Updates Accumulator by value at memory location: 0x127
-    StringMemoryAddressing() → Converts complete memory addressing string array into individual
-    tokens which then converts Immediate addressing into integers and Register string into register
-    values.
-    StringRegistersToInt() → Converts register string into register value in int and then passed on to
-    convert memory addressing into memory locations.
-    MemoryAddressing() → Resolves int inputs of D,Rb,Ri,S into int memory location for further
-    functional applications.
+    
+    StringMemoryAddressing() → Converts complete memory addressing string array into individual tokens which then converts Immediate addressing into integers and Register string into register values.
+    StringRegistersToInt() → Converts register string into register value in int and then passed on to convert memory addressing into memory locations.
+    MemoryAddressing() → Resolves int inputs of D,Rb,Ri,S into int memory location for further functional applications.
+    
     Special Cases:
     (Rb,Ri) Mem[Reg[Rb]+Reg[Ri]] (R1,R3)
     D(Rb,Ri) Mem[Reg[Rb]+Reg[Ri]+D] 0xAB(R1,R3)
     (Rb,Ri,S) Mem[Reg[Rb]+S*Reg[Ri]] (R1,R3,4)
+    
     Examples
     0x8(%rdx) 0xf000 + 0x8 0xf008
     (%rdx,%rcx) 0xf000 + 0x100 0xf100
     (%rdx,%rcx,4) 0xf000 + 4*0x100 0xf400
     0x80(,%rdx,2) 2*0xf000 + 0x80 0x1e080
+    
     Reading Instructions From Memory:
-    getCurrentInstruction() → Reads in 32-bit Instruction from memory, stores into currentInstruction
-    global variable.
-    parseInstructionFromMemory() → Separates 32-bit Instruction into 8-bit operation, and three
-    8-bit operands.
-    decodeInstructionOperationOperand() → Decodes each operation and operand into its
-    appropriate operation and register value.
+    getCurrentInstruction() → Reads in 32-bit Instruction from memory, stores into currentInstruction global variable.
+    parseInstructionFromMemory() → Separates 32-bit Instruction into 8-bit operation, and three 8-bit operands.
+    decodeInstructionOperationOperand() → Decodes each operation and operand into its appropriate operation and register value.
     callAppropriateFunction() → Calls function based on operation value.
+    
     Once the assembly instructions have been read in from the text file, decoded into their opcodes,
     and stored into memory, the program will begin.
-    We have a default program start set to memory location 1024. That is, every instruction will start
-    from memory location 1024.
-    Starting from memory location 1024, we use the getCurrentInstruction function to read in the
-    entire instruction to be used. It reads the 32-bit instruction and stores the value into a global
-    currentInstruction variable. After we have the entire 32-bit instruction, we need to separate it into
-    its 8-bit operation and three 8-bit operand values.
-    To do this, we call the parseInstructionFromMemory function. Based on our current Instruction
-    Set, every Instruction will include an 8-bit operation, followed by three 8-bit operands labeled
-    operand1, operand2, and operand 3 respectively.
-    After getting the operation and operand opcodes from the currentInstruction, we use the
-    decodeInstructionOperationOperand function, to decode the operation/operand and determine
-    which operation and operand they correspond to. We do this by checking, bit by bit, the
-    operation/opcode, with their defined value. If all bits match, then we have a match and that is
-    the corresponding operation/register.
-    Finally, once we have the decoded operation/operand values, we know which function to call.
-    We use the callAppropriateFunction function to do this. This function will check the operation
-    value and call the function that matches that value.
-    After the instruction has been read from memory, parsed into its operation/operand, decoded,
-    and executed, the next instruction will be called. Every instruction in our architecture is defined
-    to be 32-bits long. With our memory having a width of 8-bits, each instruction will take up four
-    rows in memory. This will always be a consistent value. As such, we know that the next
-    instruction will be at location (current instruction plus 4).
-    In order for our program to know when to stop reading from Instruction Memory, we created an
-    “EXIT” instruction. This instruction is added to the end of the assembly program and has an
-    opcode of 10101010. Therefore, our program will read every instruction from memory until it has
-    reached/matched the 10101010 EXIT opcode. Once this opcode has been fetched and
-    decoded, an exit flag will be set and the program will no longer fetch additional instructions.
+    We have a default program start set to memory location 1024. That is, every instruction will start from memory location 1024.
+    Starting from memory location 1024, we use the getCurrentInstruction function to read in the entire instruction to be used. It reads the 32-bit instruction and stores the value into a global currentInstruction variable. After we have the entire 32-bit instruction, we need to separate it into its 8-bit operation and three 8-bit operand values.
+    To do this, we call the parseInstructionFromMemory function. Based on our current Instruction Set, every Instruction will include an 8-bit operation, followed by three 8-bit operands labeled operand1, operand2, and operand 3 respectively.
+    After getting the operation and operand opcodes from the currentInstruction, we use the decodeInstructionOperationOperand function, to decode the operation/operand and determine which operation and operand they correspond to. We do this by checking, bit by bit, the operation/opcode, with their defined value. If all bits match, then we have a match and that is the corresponding operation/register.
+    Finally, once we have the decoded operation/operand values, we know which function to call. We use the callAppropriateFunction function to do this. This function will check the operation value and call the function that matches that value.
+    After the instruction has been read from memory, parsed into its operation/operand, decoded, and executed, the next instruction will be called. Every instruction in our architecture is defined to be 32-bits long. With our memory having a width of 8-bits, each instruction will take up four rows in memory. This will always be a consistent value. As such, we know that the next instruction will be at location (current instruction plus 4).
+    In order for our program to know when to stop reading from Instruction Memory, we created an “EXIT” instruction. This instruction is added to the end of the assembly program and has an opcode of 10101010. Therefore, our program will read every instruction from memory until it has reached/matched the 10101010 EXIT opcode. Once this opcode has been fetched and decoded, an exit flag will be set and the program will no longer fetch additional instructions.
 
 ALU Functions:
     
