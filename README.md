@@ -78,6 +78,7 @@ CPU Overview:
 2) Accumulator 32 bit – 1 Accumulator is a 32-bit register. It will store the output of the ALU.
 
 3) Memory 4096 locations (rows) each with 8 bit
+
       1. 0-2047 (reserved for Instruction set, Stack, Heap)
       
         a. 0 - 1023 (Bootstrap)
